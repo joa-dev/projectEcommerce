@@ -1,3 +1,16 @@
+//Constructor
+class Producto {
+    constructor(id, cod, nombre, imagen, precio, categoria, cantidad) {
+        this.id = id;
+        this.cod = cod;
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.precio = precio;
+        this.categoria = categoria;
+        this.cantidad = cantidad;
+    }
+}
+
 let stockProductos = [
     { 
         id: 1, 
@@ -7,7 +20,7 @@ let stockProductos = [
         imagen: "../assets/img/products/10058.webp", 
         precio: 1860, 
         categoria: "faciales", 
-        cantidad: 2 
+        cantidad: 1 
     },
     { 
         id: 2, 
@@ -17,7 +30,7 @@ let stockProductos = [
         imagen: "../assets/img/products/10072.webp", 
         precio: 1850, 
         categoria: "faciales", 
-        cantidad: 2 
+        cantidad: 1 
     },
     { 
         id: 3, 
@@ -27,7 +40,7 @@ let stockProductos = [
         imagen: "../assets/img/products/10065.webp", 
         precio: 1730, 
         categoria: "faciales", 
-        cantidad: 2 
+        cantidad: 1 
     },
     { 
         id: 4, 
@@ -37,6 +50,6 @@ let stockProductos = [
         imagen: "../assets/img/products/13868.webp", 
         precio: 1860, 
         categoria: "faciales", 
-        cantidad: 2 
+        cantidad: 1
     },
 ];
