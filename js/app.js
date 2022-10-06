@@ -12,6 +12,19 @@ const botonWhatsApp = document.getElementById("whatsapp")
 
 let carrito = [];
 
+//Constructor
+class Producto {
+    constructor(id, cod, nombre, imagen, precio, categoria, cantidad) {
+        this.id = id;
+        this.cod = cod;
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.precio = precio;
+        this.categoria = categoria;
+        this.cantidad = cantidad;
+    }
+}
+
 //Cargar carrito desde el localStorage
 document.addEventListener("DOMContentLoaded", () =>{
     if(localStorage.getItem("carrito")){
@@ -42,7 +55,7 @@ botonVaciar.addEventListener("click", () => {
             'success'
           )
           carrito.length = 0;
-          stockProductos.forEach((producto) => {
+          arregloDeProductos.forEach((producto) => {
             //Reinicia Cantidades del Carrito
             producto.cantidad = 1;
           });
@@ -52,7 +65,8 @@ botonVaciar.addEventListener("click", () => {
 })
 
 //Visualizar Cards de Productos
-for (let producto of stockProductos) {
+function visualizarProductos(productos){
+    for (producto of productos) {
     let div = document.createElement("div");
     div.innerHTML = `<div class="card mx-auto" style="width: 18rem;">
                             <img id="imagenProducto" src="${producto.imagen}" class="card-img-top" alt="...">
@@ -67,16 +81,18 @@ for (let producto of stockProductos) {
     
                         contenedorProductos.appendChild(div);
 
-                        const boton = document.getElementById(`agregar${producto.id}`)
-
+                        let boton = document.getElementById(`agregar${producto.id}`)
+                        console.log(producto.id);//Valores 1, 2, 3 y 4 (esta bien porque producto.id va del 1 al 4)
                         boton.addEventListener("click", () => {
+                            console.log(producto.id);//SIEMPRE VALOR 4 (el ultimo producto.id del arreglo)
                             agregarAlCarrito(producto.id);
                         })
+                }
 }
 
 //Agregar al carrito y Cantidades
 const agregarAlCarrito = (prodId) => {
-    const existe = carrito.some (prod => prod.id === prodId);
+    const existe = carrito.some ((prod) => prod.id === prodId);
     if (existe){
         const prod = carrito.map (prod => {
             if (prod.id === prodId){
@@ -92,7 +108,7 @@ const agregarAlCarrito = (prodId) => {
         })
 
     } else {
-        const item = stockProductos.find ((prod) => prod.id === prodId);
+        const item = arregloDeProductos.find ((prod) => prod.id === prodId);
         carrito.push(item);
     }
     actualizarCarrito();
@@ -129,3 +145,6 @@ const actualizarCarrito = () => {
     contadorCarrito.innerText = carrito.length;
     precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.precio, 0);
 }
+traerProductosDelJSON();
+console.log(arregloDeProductos);
+// visualizarProductos();
