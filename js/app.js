@@ -66,7 +66,7 @@ botonVaciar.addEventListener("click", () => {
 
 //Visualizar Cards de Productos
 function visualizarProductos(productos){
-    for (producto of productos) {
+    for (let producto of productos) {
     let div = document.createElement("div");
     div.innerHTML = `<div class="card mx-auto" style="width: 18rem;">
                             <img id="imagenProducto" src="${producto.imagen}" class="card-img-top" alt="...">
