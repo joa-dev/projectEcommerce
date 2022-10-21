@@ -33,11 +33,6 @@ document.addEventListener("DOMContentLoaded", () =>{
     }
 })
 
-//Boton WhatsApp (envia mensaje con el contenido del carrito)
-botonWhatsApp.addEventListener("click", (carrito) => {
-    window.open(`https://wa.me/1541112345678?text=Hola!%20Quiero%20comprar%20estos%20productos:%20${carrito}`);
-});
-
 //Vaciar Carrito
 botonVaciar.addEventListener("click", () => {
     Swal.fire({
@@ -68,7 +63,7 @@ botonVaciar.addEventListener("click", () => {
 function visualizarProductos(productos){
     for (let producto of productos) {
     let div = document.createElement("div");
-    div.innerHTML = `<div class="card mx-auto" style="width: 18rem;">
+    div.innerHTML = `<div class="card mx-auto" style="max-width: 18rem;">
                             <img id="imagenProducto" src="${producto.imagen}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 id="nombreProducto" class="card-title">${producto.nombre}</h5>
@@ -82,9 +77,7 @@ function visualizarProductos(productos){
                         contenedorProductos.appendChild(div);
 
                         let boton = document.getElementById(`agregar${producto.id}`)
-                        console.log(producto.id);//Valores 1, 2, 3 y 4 (esta bien porque producto.id va del 1 al 4)
                         boton.addEventListener("click", () => {
-                            console.log(producto.id);//SIEMPRE VALOR 4 (el ultimo producto.id del arreglo)
                             agregarAlCarrito(producto.id);
                         })
                 }
@@ -123,9 +116,6 @@ const eliminarDelCarrito = (prodId) => {
     actualizarCarrito();
 }
 
-
-
-
 //Visualizar cada producto del Carrito
 const actualizarCarrito = () => {
     contenedorCarrito.innerHTML = "";
@@ -134,7 +124,7 @@ const actualizarCarrito = () => {
         div.className = ("productoEnCarrito");
         div.innerHTML = `
         <p>${prod.nombre}</p>
-        <p>Precio: ${prod.precio}</p>
+        <p>Precio: $${prod.precio}</p>
         <p>Cantidad: <span id="cantidad">${prod.cantidad}</span></p>
         <button onclick = "eliminarDelCarrito(${prod.id})" class="boton-eliminar"><img src="./assets/img/trash.svg" class="rounded float-end"></button>
         `
@@ -142,9 +132,9 @@ const actualizarCarrito = () => {
 
         localStorage.setItem("carrito", JSON.stringify(carrito));
     })
-    contadorCarrito.innerText = carrito.length;
-    precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.precio, 0);
+    contadorCarrito.innerText = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+    precioTotal.innerText = carrito.reduce((acc, prod) => acc + prod.precio * prod.cantidad, 0);
 }
+
 traerProductosDelJSON();
-console.log(arregloDeProductos);
 // visualizarProductos();
